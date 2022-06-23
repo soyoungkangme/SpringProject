@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	
+	<!-- Controller 객체 등록
+	많아질수록 관리 어려우므로 @Annotation 처리
+	<bean id="getBoardList" class="com.ssamz.web.controller.board.GetBoardListController"/>
+	<bean id="loginView" class="com.ssamz.web.controller.user.loginViewController"/>
+	<bean id="login" class="com.ssamz.web.controller.user.loginController"/>
+	<bean id="logout" class="com.ssamz.web.controller.user.logoutController"/>
+	<bean id="insertBoardView" class="com.ssamz.web.controller.board.insertBoardViewController"/>
+	<bean id="insertBoard" class="com.ssamz.web.controller.board.insertBoardController"/>
+	<bean id="updateBoard" class="com.ssamz.web.controller.board.updateBoardController"/>
+	<bean id="deleteBoard" class="com.ssamz.web.controller.board.deleteBoardController"/>
+	<bean id="getBoard" class="com.ssamz.web.controller.board.getBoardController"/>
+	<bean id="insertUser" class="com.ssamz.web.controller.user.insertUserController"/>
+	<bean id="insertUserView" class="com.ssamz.web.controller.user.insertUserViewController"/>
+	-->
+	
+	<!-- HandlerMapping 객체 등록 (.do 요청과 특정 Controller 객체 매핑), 아이디 고정(소문자)
+	setMappings()는 Properties 객체를 매개변수로 받음
+	SimpleUrlHandlerMapping는 멤버변수로 Properties 타입의 컬렉션 가짐
+	=> 매개변수 = 멤버변수 = <property> 의 name 속성 (내가 만든 HandlerMapping은 HashMap 타입) 
+	<bean id="handlermapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	    <property name="mappings">
+	        <props>
+	            <prop key="/getBoardList.do">getBoardList</prop>     // 키밸류
+	            <prop key="/loginView.do">loginView</prop>
+	            <prop key="/login.do">login</prop>
+	            <prop key="/logout.do">logout</prop>
+	            <prop key="/insertBoardView.do">insertBoardView</prop>
+	            <prop key="/insertBoard.do">insertBoard</prop>
+	            <prop key="/updateBoard.do">updateBoard</prop>
+	            <prop key="/deleteBoard.do">deleteBoard</prop>
+	            <prop key="/getBoard.do">getBoard</prop>
+	            <prop key="/insertUser.do">insertUser</prop>
+	            <prop key="/insertUserView.do">insertUserView</prop>
+	        </props>
+	    </property>
+	</bean>
+	-->
+	
+	<!-- 빈등록으로 매핑하는 대신 Annotation 으로 MVC 처리 (.do 요청과 Controller) -->
+	<context:component-scan base-package="com.ssamz.web.controller"/>
+	
+
+
+<!-- ViewResolver
+각 Controller의 JSP 경로 수정 -> jsp 파일들 경로 바꾸기 쉬움 -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/board/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+</beans>
+
+<!-- new, Spring Bean Configuration File --> 

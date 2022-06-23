@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- name space 에 등록된 태그만 사용 가능 (STS가 자동생)  -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	
+<!-- 스프링 컨테이너가 객체 생성할 클래스 등록 
+<bean id="tv"   
+      class="polymorphism.SamsungTV"
+      init-method="멤버변수초기화"
+      destroy-method="자원해제"
+      lazy-init="false"
+      scope="singleton">
+</bean>	
+-->
+      
+<!-- <bean class="polymorphism.LgTV" lazy-init="true">  --> 
+
+
+
+<!-- 생성자 인젝션 
+자바 소스 수정 없이 스피커 변경 가능 (다형성 이용 : 인터페이스, 상속, 업캐스팅)
+GoogleTV 생성자 호출할때 넘길 매개변수 객체 먼저 생성 해야함 
+
+<bean id="speaker" class="polymorphism.AppleSpeaker"></bean>
+
+<bean id="tv" class="polymorphism.GoogleTV">
+    <constructor-arg ref="speaker"></constructor-arg>
+    <constructor-arg value="1500000"></constructor-arg>
+</bean>
+
+
+
+
+세터 인젝션
+멤버변수가 여러개 일때, 생성자 오버로딩을 너무 많이 해야하므로 세터 인젝션을 주로 사용함 
+<bean id="speaker" class="polymorphism.AppleSpeaker"></bean>
+
+<bean id="tv" class="polymorphism.GoogleTV">
+    <property name="speaker" ref="speaker"></property>
+    <property name="price" value="1200000"></property>
+</bean>
+
+
+
+// <property> 대신 p name space 가능, 결과 동 
+<bean id="speaker" class="polymorphism.AppleSpeaker"></bean>
+<bean id="tv" class="polymorphism.GoogleTV" p:speaker-ref="speaker" p:price="100000"></bean>
+-->
+
+
+
+<!--XML 대신 Annotation (IoC : 자바 소스 수정 없이 유지보수 하기)
+<bean> 대신 사용 (유지보수 과정에서 클래스 이름 바뀌어도 xml 수정할 필요 없음), 클래스 위에 @Component 붙은 객체를 무조건 메모리에 생성 
+-->
+<context:component-scan base-package="polymorphism"/>   
+
+
+<!-- 유지보수 과정에서 변경되는 객체는 XML 파일에 <bean> 등록, 변경되지 않는 객체는 최대한 @Component
+내가 만들지 않은 라이브러리의 클래스도 어노테이션 불가
+Annotation 은 과도한 XML 설정 부담 줄이는 것이 목적
+여기서 스피커 변경 -->
+<bean class="polymorphism.AppleSpeaker"/>
+
+
+<!-- Collection Injection 
+컨테이너가 배열 객체 만들어서 setAddressList() 호출할때(세터인젝션) 넘겨줘라
+유지보수에서 자바소스 안건들임 
+<list>, <set>, <>, <> -->
+<bean id="collection" class="polymorphism.CollectionBean">
+    <property name="addressList">
+        
+        <list>
+            <value>면목동</value>
+            <value>신당동</value>
+            <value>학동</value>       
+        </list>
+    
+    </property>
+</bean>
+
+
+</beans>
+
+
+
+<!-- id : 객체 식별
+     class : 컨테이너가 프리로딩
+     init-method : 객체 생성 직후 호출
+     destroy-method : 객체 삭제 직전 호출  
+     lazy-init : 특정 객체를 lazy-loading 으로 생성, 디폴트 false 
+     prototype : getBean() 할때 마다 메모리에 새로운 객체 생성 (서로 다른 메모리 주소)
+     singleton : 디폴트, 여러번 getBean() 해도 메모리에 하나의 객체만 생성됨 (같은 메모리 주소)
+     constructor-arg : 디폴트 생성자 아닌 생성자 호출할때 넘길 인자 객체의 아이디 = ref 
+     value : 정수, 실수, 문자열 타입의 매개변수를 갖는 생성자 호출 
+     property : name = 호출할 세터 메서드, ref = 호출 할 때 넘겨줄 인자  
+     p:세터메서드="넘길인자" : 호출할 세터메서드 (property 안써도됨)
+     context:component-scan : @Component 는 <bean> 대신 사용 (context name space 추가)
+     base-package : 에 속한 모든 클래스 스캔해라 
+     
+     </> : 시작태그와 종료태그 사이에 아무것도 없을때 
+-->
+

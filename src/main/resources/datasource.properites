@@ -1,0 +1,8 @@
+# DataSource \uD504\uB85C\uD37C\uD2F0 \uC124\uC815 
+jdbc.driverClassName=org.h2.Driver
+jdbc.url=jdbc:h2:tcp://localhost/~/test
+jdbc.username=sa
+jdbc.password=
+
+# XML\uC758 dataSource\uC758 property \uAE01\uC5B4\uC624\uAE30, \uB514\uBE44 \uBC14\uAFB8\uAE30 \uC27D\uB3C4\uB85D (xml \uB9D0\uACE0 properties \uBCC0\uACBD) 
+# open with simple properties editor 
