@@ -64,7 +64,7 @@ public class BoardServiceImpl implements BoardService {
 		boardDAO.deleteBoard(vo);
 	}
 
-	public BoardVO getBoard(BoardVO vo) {
+	public BoardVO getBoard(BoardVO vo) { 
 		return boardDAO.getBoard(vo);
 	}
 

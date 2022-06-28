@@ -32,7 +32,7 @@ public class HandlerMapping {
 		mappings.put("/insertBoard.do", new insertBoardController()); 
 		mappings.put("/updateBoard.do", new updateBoardController()); 
 		mappings.put("/deleteBoard.do", new deleteBoardController()); 
-		// User 관련 Controller 등록 
+		// User 관련 Controller 등록
 		mappings.put("/insertUserView.do", new insertUserViewController());   // WEB-INF 폴더에 대해 브라우저가 직접 요청 할수 없으므로 우회 (회원가입 화면으로 이동)
 		mappings.put("/insertUser.do", new insertUserController());
 		mappings.put("/loginView.do", new loginViewController());

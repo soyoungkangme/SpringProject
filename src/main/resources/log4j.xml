@@ -24,10 +24,4 @@
 </log4j:configuration>
 
 
-<!-- 
-DEBUG : 가장 낮은 단계, 제일 많은 로그 출력 
-INFO : 이 기준 윗단계 다 출력 
-WARN :
-ERROR :
-FATAL :
- -->
+<!-- DEBUG - INFO - WARN - ERROR - FATAL -->

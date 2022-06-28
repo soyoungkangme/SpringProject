@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 // 사전처리(횡단 관심) 클래스를 LogAdvice 에서 AdvancedLogAdvice 로 바꿀때 BoardServiceImpl 수정 없음, XML 만 수정 
 // Board, User의 모든 비즈니스 메서드에 사전처리 동작
 
-@Service    // 빈등록 대체 (실행되는 횡단 관심 객체)
+@Service    // 빈등록 대체 (실행되는 횡단 관심 객체) 
 @Aspect      // = Pointcut + Advice 
 public class AdvancedLogAdvice {
 	

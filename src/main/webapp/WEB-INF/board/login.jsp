@@ -8,7 +8,8 @@
 	
 	<tr>
 		<td bgcolor="orange">아이디</td>
-		<td><input type="text" name="id" size="20" value="${user.id}"/></td>
+		<td><input type="text" name="id" size="20" value="${user.id}"/></td>  
+		<!-- 컨트롤러(loginView)에서 매개변수로 VO 객체 받았으므로 화면에 뿌릴수 있는 것  -->
 	</tr>
 	
 	<tr>

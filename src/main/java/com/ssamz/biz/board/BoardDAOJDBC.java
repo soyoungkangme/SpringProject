@@ -104,7 +104,7 @@ public class BoardDAOJDBC implements BoardDAO {
 			conn = JDBCUtil.getConnection();
 			stmt = conn.prepareStatement(BOARD_GET);
 			stmt.setInt(1, vo.getSeq());
-			rs = stmt.executeQuery();      // select의 결과로 result set 리턴 
+			rs = stmt.executeQuery();      // SQL 날리고 반환된 검색결과 result set에 저장 
 			if(rs.next()) {				 
 				
 				// 검색 결과가 있을때만 조회수 증가 (rs.next() 가 true 일때만) 
@@ -116,11 +116,11 @@ public class BoardDAOJDBC implements BoardDAO {
 				// 이렇게 안하고 메서드 따로 만들어도 되지만 이 기능은 다른데서 재사용 안되므로 이 메서드에만 기능 구현
 				
 				board = new BoardVO();
-				board.setSeq(rs.getInt("SEQ"));
+				board.setSeq(rs.getInt("SEQ"));          // rs 객체의 컬럼과 VO 객체의 변수 매핑  
 				board.setTitle(rs.getString("TITLE"));
 				board.setContent(rs.getString("CONTENT"));
 				board.setWriter(rs.getString("WRITER"));
-				board.setRegDate(rs.getDate("REGDATE"));
+				board.setRegDate(rs.getDate("REGDATE")); 
 				board.setCnt(rs.getInt("CNT"));
 			}
 		} catch (SQLException e) {

@@ -1,4 +1,8 @@
 // 파일 삭제 (스프링꺼씀) 
+
+
+// presentation-layer.xml 로딩하여 스프링 컨테이너(Controller) 생성
+
 /*
 package com.ssamz.web.controller;
 

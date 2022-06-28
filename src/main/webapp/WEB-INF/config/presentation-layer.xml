@@ -7,7 +7,7 @@
 	
 	
 	<!-- Controller 객체 등록
-	많아질수록 관리 어려우므로 @Annotation 처리
+	많아질수록 관리 어려우므로 @Controller 처리 
 	<bean id="getBoardList" class="com.ssamz.web.controller.board.GetBoardListController"/>
 	<bean id="loginView" class="com.ssamz.web.controller.user.loginViewController"/>
 	<bean id="login" class="com.ssamz.web.controller.user.loginController"/>
@@ -25,7 +25,7 @@
 	setMappings()는 Properties 객체를 매개변수로 받음
 	SimpleUrlHandlerMapping는 멤버변수로 Properties 타입의 컬렉션 가짐
 	=> 매개변수 = 멤버변수 = <property> 의 name 속성 (내가 만든 HandlerMapping은 HashMap 타입) 
-	<bean id="handlermapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 	    <property name="mappings">
 	        <props>
 	            <prop key="/getBoardList.do">getBoardList</prop>     // 키밸류
@@ -44,7 +44,9 @@
 	</bean>
 	-->
 	
-	<!-- 빈등록으로 매핑하는 대신 Annotation 으로 MVC 처리 (.do 요청과 Controller) -->
+	<!-- 빈등록으로 매핑하는 대신 Annotation 으로 MVC 처리하기 위한 설정 (.do 요청과 Controller)
+	BoardController만 메모리에 뜨고 BoardServiceImpl은 메모리에 안뜸 (컨트롤러가 의존하는 객체) 
+	presentation-layer.xml 보다 business-layer.xml 을 먼저 로딩하여 의존하는 객체가 먼저 메모리에 로딩되도록 해야함 -->
 	<context:component-scan base-package="com.ssamz.web.controller"/>
 	
 
@@ -57,5 +59,6 @@
     </bean>
 
 </beans>
+
 
 <!-- new, Spring Bean Configuration File --> 

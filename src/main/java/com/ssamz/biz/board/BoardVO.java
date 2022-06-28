@@ -4,7 +4,7 @@ import java.sql.Date;
 
 import lombok.Data;
 
-@Data
+@Data    // lombok : setter, getter, toString 등의 메서드 자동 제공 
 public class BoardVO {
 	private int seq;
 	private String title;

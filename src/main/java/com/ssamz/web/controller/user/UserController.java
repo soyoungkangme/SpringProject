@@ -35,17 +35,20 @@ public class UserController {
 	}
 	
 	@RequestMapping("/loginView.do")
-	public String loginView(@ModelAttribute("user") UserVO vo) {   // Model 객체에 user로 UserVO 객체 등록해라 (없어도 결과 같지만 등록되 이름 userVO) 
-	// 매개변수로 UserVO 안받아도 되는 로직이지만 매개변수로 VO 객체 받으면, 컨테이너가 자동으로 Model에 등록하므로 화면에 뿌릴수 있음 (Model은 request에 자동 등록)
-		vo.setId("test");
+	public String loginView(@ModelAttribute("user") UserVO vo) {    // Model 객체 사용되지만 매개변수로 안받아도됨 (자동) 
+		vo.setId("test");   // 로그인 화면에서 id, password 세팅 해놓기
 		vo.setPassword("test");
+		// model.addAttribute("userVO", vo);  // 매개변수로 VO 객체 받으면 자동으로 Model에 등록됨 -> 로그인 화면에서 id, password 정보 뿌릴수 있음 
 		return "login";
 	}
+	// 매개변수로 UserVO 안받아도 되는 로직이지만 매개변수로 VO 객체 받으면, 컨테이너가 자동으로 Model에 등록하므로 화면에 뿌릴수 있음 (Model은 request에 자동 등록)
+	// 이동한 jsp 화면에서 Model에 저장된 데이터를 session 아닌 request 로부터 꺼내 쓸수 있음 
+	// @ModelAttribute("user") 생략해도 결과 동일 (Model에 UserVO 객체를 user 이름으로 저장해라 -> jsp에서 user로 사용) 
 	
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
 		session.invalidate();  
-		return "forward:/";
+		return "forward:/"; 
 	}
 	
 }

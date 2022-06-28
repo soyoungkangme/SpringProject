@@ -15,7 +15,7 @@
 	<!-- 등록, 수정, 목록 검색 시 (모든 .do 에 대해) 한글 깨지지 않도록 
 	new filter - initialization parameters, add, name: encoding, value: UTF-8 - filter mappings, *.do 
 	init-param: 가 설정된 필터/서블릿의 init() 에서만 접근 가능 
-	필터는 원래 pre-loading (web.xml 로딩 후 바로 생성) -->
+	필터는 원래 pre-loading (web.xml 로딩 후 바로 생성) --> 
 	<filter>
 		<filter-name>chracterEncoding</filter-name>
 		<!-- <filter-class>com.ssamz.web.common.ChracterEncodingFilter</filter-class> -->
@@ -31,9 +31,10 @@
 	</filter-mapping>
 	
 
-	<!-- 리스너 프리로딩 후 contextInitialized() 에서 business-layer.xml 로딩해서 스프링 컨테이너 생성 하므로  
-	Controller(서블릿객체가 presentation-layer 로딩해서 생성하는) 보다 ServiceImpl 객체가 먼저 메모리 로딩 되도록 
-	(Controller가 ServiceImpl 사용하므로 ServiceImpl가 먼저 메모리에 로딩되어야함)-->
+	
+	<!-- 서블릿 컨테이너 생성 될때 프리로딩 되는 리스너 객체 ->  생성 직후에 init()가 business-layer.xml 로딩하여 스프링 컨테이너 생성 -> 해제 직후에 destroy() 
+	Controller 객체보다 ServiceImpl 객체가 먼저 메모리에 프리 로딩되어야함 (의존하므로)
+	서블릿의 <load-on-startup> 해도 필터, 리스너가 먼저 로딩됨 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:business-layer.xml</param-value>
@@ -68,4 +69,6 @@
 </web-app>
 
 
-<!-- web.xml 수정 후 서버 재시동 해야함 -->
+<!-- 
+서블릿 컨테이너가 로딩
+web.xml 수정 후 서버 재시동 해야함 -->

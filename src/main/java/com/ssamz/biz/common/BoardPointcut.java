@@ -4,7 +4,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
 
-// 모든 횡단관심 메서드의 AOP Pointcut 설정 긁어옴 
+// 비즈니스 메서드 필터링 종류 등록 
 
 // @Service -> 생성될 필요 없는 객체 
 @Aspect

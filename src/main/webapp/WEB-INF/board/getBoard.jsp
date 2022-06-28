@@ -46,7 +46,7 @@
 <br>
 
 <c:if test="${user.role == 'ADMIN' }">
-<a href="deleteBoard.do?seq=${board.seq }">글삭제</a>
+<a href="deleteBoard.do?seq=${board.seq }">글삭제</a>   <!-- seq = 컨트롤러의 매개변수와 이름 일치, 매개변수 이름 다르게 하고 싶다면 @RequestParam("seq")  -->
 </c:if>
 
 </center>

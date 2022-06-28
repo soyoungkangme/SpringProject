@@ -1,5 +1,4 @@
 # Spring
-1. [Framework, Architecture](## 🌱 Framework, Architecture)
 
 
 <br><br>
@@ -243,7 +242,7 @@ public void 신한은행에서인출한다() {
 != 스프링의 DispatcherServlet => 아님 => 디스패처 서블릿이 내부적으로 이용하는 객체들을 메모리에 생성하고 관리하는 스프링 컨테이너  
 - DispatcherServlet : FrontServlet (모든 .do 요청 한곳에서 받아들이는 창구, 진입점)
 
-![](https://velog.velcdn.com/images/kangnang/post/ab247270-7d88-4d8d-bb5a-881f1a404ade/image.png
+![](https://velog.velcdn.com/images/kangnang/post/ab247270-7d88-4d8d-bb5a-881f1a404ade/image.png)
 
 <br>
 
@@ -286,7 +285,6 @@ Properties<String>   =>   <props>, <prop>
 <br><br>
 
 ## 🌱 Annotation 기반 Spring MVC 
-=======
 1. JDBC, JSP, Servlet 복습 (Model2 Architecture)
 - 웹 개발 모델  
 Model(DAO, VO) : 디비 연동 -> 자바 개발자  
@@ -310,4 +308,3 @@ d. DispatcherServlet : 반환한 문자열 브라우저에 출력 (포워드 화
 - .do 요청 받을때마다 HandlerMapping 객체 생성 (모든 컨트롤러 생성하여 Map에 등록) 안되도록  
 a. service() 메서드 내부X, 멤버변수로 선언  
 b. init() 로 new  
->>>>>>> 046b7beccdcae5bf9665d6d2557737c08f71530f
