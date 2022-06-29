@@ -7,7 +7,7 @@
 <sqlMapConfig>
 
 
-    <!-- DataSource : 디비 커넥션 관련 정보 가지고 있는 객체 (어떤 디비와 연결할지) -->
+    <!-- 스프링 설정파일에 있는 dataSource 같이 사용함      // dataSource : 디비 커넥션 관련 정보 가지고 있는 객체 (어떤 디비와 연결할지) 
 	<properties resource="database.properties" />
 	<transactionManager type="JDBC">
 		<dataSource type="SIMPLE">
@@ -17,6 +17,7 @@
 			<property name="JDBC.Password" value="${password}" />
 		</dataSource>
 	</transactionManager>
+	-->
 	
 	
 	<!-- SqlMap 파일 등록 (SQL문) -->
@@ -24,6 +25,13 @@
 	
 	
 </sqlMapConfig>
+
+
+
+
+
+
+
 
 
 

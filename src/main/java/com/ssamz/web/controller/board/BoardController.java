@@ -43,7 +43,7 @@ public class BoardController {
 	
 	/*
 	@RequestMapping("/getBoard.do")
-	public ModelAndView getBoard(BoardVO vo, BoardDAOJDBC boardDAO, ModelAndView mav) {
+	public ModelAndView getBoard(BoardVO vo, BoardDAOJDBC boardDAO, ModelAndView mav) {  // 포조이므로 필요한 객체 다 인자로 받을수 있음
 		mav.addObject("board", boardDAO.getBoard(vo));  
 		mav.setViewName("getBoard");  
 		return mav;

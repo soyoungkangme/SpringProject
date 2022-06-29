@@ -118,10 +118,24 @@ dataSource는 위의 설정 이용 (ref)  // 문자열은 value -->
 
 
 
+<!-- Spring이 MyBatis 연동 지원 위해 qlSessionFactoryBean 객체 (MyBatis 컨테이너 공장) 제공함 (라이브러리 추가하기)
+XML(디비, sql 정보) 로딩하여 MyBatis 컨테이너 생성
+dataSource는 위의 설정 이용 (ref)  // 문자열은 value -->
+<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="configLocation" value="classpath:sql-map-config(mybatis).xml"/>   <!-- XML을 세터인젝션으로 세팅 -->
+    <property name="dataSource" ref="dataSource"/>
+</bean>
+<!-- MyBatis 템플릿 등록 -->
+<bean class="org.mybatis.spring.SqlSessionTemplate">
+    <constructor-arg ref="sqlSession"/>    <!-- 세터메서드 없는 객체이므로 생성자 인젝션으로 의존성 주입 -->
+</bean>
+
+
+
 <!-- 디비연동 변경 자바소스 변경 없이 하기 위해 @Repository 대신 빈등록
 BoardDAO 를 implements 한 객체 중 하나만 메모리에 떠야함 -->
-<bean class="com.ssamz.biz.board.BoardDAOIBATIS"></bean>
-<bean class="com.ssamz.biz.user.UserDAOSpring"></bean>
+<bean class="com.ssamz.biz.board.BoardDAOMyBatis"></bean>  <!-- 컨트롤러가 Service 거치므로 @Autowired, 빈등록으로 DAO 쉽게 변경 -->
+<bean class="com.ssamz.biz.user.UserDAOMyBatis"></bean>
 
 
 

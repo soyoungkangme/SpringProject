@@ -2,15 +2,20 @@ package com.ssamz.web.controller.user;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ssamz.biz.user.UserDAOJDBC;
+import com.ssamz.biz.user.UserService;
 import com.ssamz.biz.user.UserVO;
 
 @Controller
 public class UserController {
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping("/insertUserView.do")
 	public String insertUserView() {
@@ -24,8 +29,8 @@ public class UserController {
 	}
 	
 	@RequestMapping("/login.do")
-	public String login(UserVO vo, UserDAOJDBC userDAO, HttpSession session) {
-		UserVO user = userDAO.getUser(vo);
+	public String login(UserVO vo, HttpSession session) {   // DAOJDBC 인자로 받지 않고 UserService 의존성 주입하여 사용  
+		UserVO user = userService.getUser(vo);
 		if(user != null) {
 			if(user.getPassword().equals(vo.getPassword())) {
 				session.setAttribute("user", user);
