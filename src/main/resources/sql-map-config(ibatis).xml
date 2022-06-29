@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+
+<!-- iBATIS 컨테이너가 로딩하는 XML (디비, SQL 정보 등록) -->
+<sqlMapConfig>
+
+
+    <!-- DataSource : 디비 커넥션 관련 정보 가지고 있는 객체 (어떤 디비와 연결할지) -->
+	<properties resource="database.properties" />
+	<transactionManager type="JDBC">
+		<dataSource type="SIMPLE">
+			<property name="JDBC.Driver" value="${driver}" />
+			<property name="JDBC.ConnectionURL" value="${url}" />
+			<property name="JDBC.Username" value="${username}" />
+			<property name="JDBC.Password" value="${password}" />
+		</dataSource>
+	</transactionManager>
+	
+	
+	<!-- SqlMap 파일 등록 (SQL문) -->
+	<sqlMap resources="mappings/board-mapping(ibatis).xml"/>
+	
+	
+</sqlMapConfig>
+
+
+
+
+
+

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+
+
+
+<!-- SQLMap 파일 (iBATIS 컨테이너가 로딩하는 XML)
+SQL, parameter 객체(BoardVO)의 변수, result 객체(resultMap)의 컬럼 매핑  
+SQL 태그 하나 당 MappedStatement 객체가 메모리에 하나씩 로딩됨 (<bean>처럼) -> iBAITS 컨테이너는 id로 식별 (반드시 유니크 해야함, 보통 DAO의 메서드의 이름과 동일하게함) 
+-->
+<sqlMap>
+
+
+    <typeAlias alias="board" type="com.ssamz.biz.board.BoardVO"/>
+    
+    <!-- 디비 검색 결과 매핑 (property = VO 객체의 변수, column = 검색결과 받은 result set의 컬럼) -->
+    <resultMap class="board" id="boardResult">   
+        <result property="seq" column="SEQ"/>
+        <result property="title" column="TILTE"/>
+        <result property="writer" column="작성자"/>  <!-- 컬럼이름과 변수이름 다른 경우 resultMap 사용 (언더바, 대소문자 다른건 resultClass) -->
+        <result property="content" column="CONTENT"/>
+        <result property="regDate" column="REGDATE"/>
+        <result property="cnt" column="CNT"/>
+    </resultMap>
+
+
+	<insert id="insertBoard" parameterClass="board">
+		insert into board(seq, title, writer, content)
+		values((select nvl(max(seq), 0) + 1 from board), #title#, #writer#, #content#)
+	</insert>
+	<update id="updateBoard">
+		update board set title = #title#, content = #content# where seq = #seq#
+	</update>
+	<delete id="deleteBoard">
+		delete board where seq = #seq#
+	</delete>
+	<select id="getBoard" resultClass="board">
+		<![CDATA[
+		select * from board where seq = #seq#
+		]]>
+	</select>
+	<select id="getBoardList" resultMap="boardResult">
+		select * 
+		from board 
+		where 1 = 1 
+		<isEqual prepend="and" property="searchCondition" compareValue="TITLE">  
+		title like '%'||#searchKeyword#||'%'
+		</isEqual>
+		<isEqual prepend="and" property="searchCondition" compareValue="CONTENT">  
+		content like '%'||#searchKeyword#||'%'
+		</isEqual>
+		order by seq desc
+	</select>
+	
+</sqlMap>
+
+
+<!-- 
+VO : 디비에 SQL 날릴때 사용, 디비에서 받은거 담아서 화면에 뿌릴때 사용
+parameterClass : 이 SQL 실행할때 파라미터로 받을 객체, 물음표 있는 SQL문은 다 필요함, 생략 가능  
+# : 변수 (컬럼 이름과 VO 객체의 변수 이름을 구분) = 사용자 입력값 추출하여 담을 객체의 변수 (물음표 없으면 필요 없음) 
+
+resultClass : 받은 검색결과(result set)를 담을 객체 (화면에 뿌리기 전) 
+resultMap : resultClass는 자동으로 매핑해주지만 컬럼 이름과 변수의 이름이 동일하지 않은 경우 필요함 (SQL에서 as 로 컬럼값 변경 가능, 언더바 안되고 대소문자는 상관없음)
+
+<![CDATA[]]> : SQL에 작다, 크다 연산자 있을때 여기에 넣어야함 (문법)  
+
+isEqual : property가 compareValue와 '같다면' where 1 = 1 and title like (SQL 여러개 만드는 대신) = dynamic SQL (하나의 SQL을 동적으로 변형시키며 처리 가능) 
+-->
+
+
+
+
+
+
+
+

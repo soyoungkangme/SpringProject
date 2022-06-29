@@ -104,9 +104,23 @@ ${properties의 키값} : 자바소스 변경 없이 디비 변경하기 위해
 
 
 
+<!-- Spring이 iBATIS 연동 지원 위해 SqlMapClientFactoryBean 객체 (iBATIS 컨테이너 공장) 제공함 (라이브러리 추가하기)
+XML(디비, sql 정보) 로딩하여 iBATIS 컨테이너 생성
+dataSource는 위의 설정 이용 (ref)  // 문자열은 value -->
+<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+    <property name="configLocation" value="classpath:sql-map-config(ibatis).xml"/>   <!-- XML을 세터인젝션으로 세팅 -->
+    <property name="dataSource" ref="dataSource"/>
+</bean>
+<!-- iBATIS 템플릿 등록 -->
+<bean class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+    <property name="sqlMapClient" ref="sqlMapClient"/>  <!-- 공장을 세터인젝션으로 세팅 -->
+</bean>
+
+
+
 <!-- 디비연동 변경 자바소스 변경 없이 하기 위해 @Repository 대신 빈등록
 BoardDAO 를 implements 한 객체 중 하나만 메모리에 떠야함 -->
-<bean class="com.ssamz.biz.board.BoardDAOSpring"></bean>
+<bean class="com.ssamz.biz.board.BoardDAOIBATIS"></bean>
 <bean class="com.ssamz.biz.user.UserDAOSpring"></bean>
 
 

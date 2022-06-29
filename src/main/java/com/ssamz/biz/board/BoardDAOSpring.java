@@ -9,7 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 
 // @Repository  // 빈등록 대신 
-public class BoardDAOSpring implements BoardDAO { 
+public class BoardDAOSpring implements BoardDAO {  
+// 타입 인젝션 대신 extends JdbcDaoSupport -> getJdbcTemplate().update() 가능 -> 공통의 부모 가질수 없으므로 이렇게 안함 
 	
 	@Autowired   // 변수 할당, notNullPointException, 생성=빈등록 
 	private JdbcTemplate spring;
