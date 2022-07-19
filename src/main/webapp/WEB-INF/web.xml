@@ -1,74 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	id="WebApp_ID" version="2.5">
-
-	<display-name>SpringProject</display-name>
-
-
-	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-	</welcome-file-list>
-
-
-	<!-- 등록, 수정, 목록 검색 시 (모든 .do 에 대해) 한글 깨지지 않도록 
-	new filter - initialization parameters, add, name: encoding, value: UTF-8 - filter mappings, *.do 
-	init-param: 가 설정된 필터/서블릿의 init() 에서만 접근 가능 
-	필터는 원래 pre-loading (web.xml 로딩 후 바로 생성) --> 
-	<filter>
-		<filter-name>chracterEncoding</filter-name>
-		<!-- <filter-class>com.ssamz.web.common.ChracterEncodingFilter</filter-class> -->
-		<filter-class>org.springframework.web.filter.ChracterEncodingFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>chracterEncoding</filter-name>
-		<url-pattern>*.do</url-pattern>
-	</filter-mapping>
-	
-
-	
-	<!-- 서블릿 컨테이너 생성 될때 프리로딩 되는 리스너 객체 ->  생성 직후에 init()가 business-layer.xml 로딩하여 스프링 컨테이너 생성 -> 해제 직후에 destroy() 
-	Controller 객체보다 ServiceImpl 객체가 먼저 메모리에 프리 로딩되어야함 (의존하므로)
-	서블릿의 <load-on-startup> 해도 필터, 리스너가 먼저 로딩됨 -->
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:business-layer.xml</param-value>
-	</context-param>
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-	
-
-
-	<!-- @WebServlet("*.do") 와 같은 결과 *.do 요청 들어오면 컨테이너가 web.xml 로딩하여 등록된 서블릿 객체 단 한개만 생성 (lazy-loading) 
-	<load-on-startup>: pre-loading 로 바꾸기, 서블릿이 여러개일때 우선순위 지정 가능
-	init-param : 서블릿의 init() 만 추출 가능한 변수 (init()의 매개변수로 받은 ServletConfig 객체의 getInitParameter())
-	param-name 고정 -->
-	<servlet>
-		<servlet-name>action</servlet-name>
-		<!-- <servlet-class>com.ssamz.web.controller.DispatcherServlet</servlet-class> // 이해하기 위해 만듦, 동작 동일 -->
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<!-- <load-on-startup>1</load-on-startup> -->
-		<init-param>
-		    <param-name>contextConfigLocation</param-name>
-		    <param-value>/WEB-INF/config/presentation-layer.xml</param-value>
-		</init-param>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>action</servlet-name>
-		<url-pattern>*.do</url-pattern>
-	</servlet-mapping>
-
-
-
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>Spring</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <filter>
+    <filter-name>chracterEncoding</filter-name>
+    <filter-class>org.springframework.web.filter.ChracterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>chracterEncoding</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:business-layer.xml</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <servlet>
+    <servlet-name>action</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>/WEB-INF/config/presentation-layer.xml</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>action</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
 </web-app>
-
-
 <!-- 
 서블릿 컨테이너가 로딩
 web.xml 수정 후 서버 재시동 해야함 -->

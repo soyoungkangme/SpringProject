@@ -37,6 +37,8 @@ public class BoardServiceImpl implements BoardService {
 //	}
  
 	
+	
+	// 등록 
 	public void insertBoard(BoardVO vo) {
 		// System.out.println("[사전처리] 핵심 비즈니스 로직 수행 전 동작"); 이나 
 		// LogAdvice log = new LogAdvice();
@@ -56,18 +58,22 @@ public class BoardServiceImpl implements BoardService {
 		// 분리 될 수 없는 작업 단위 (이체=출금+입금) 
 	}
 
+	// 수정 
 	public void updateBoard(BoardVO vo) {
 		boardDAO.updateBoard(vo);
 	}
 
+	// 삭제 
 	public void deleteBoard(BoardVO vo) {
 		boardDAO.deleteBoard(vo);
 	}
 
+	// 상세조회 
 	public BoardVO getBoard(BoardVO vo) { 
 		return boardDAO.getBoard(vo);
 	}
 
+	// 목록조회 
 	public List<BoardVO> getBoardList(BoardVO vo) {
 		return boardDAO.getBoardList(vo);
 	}

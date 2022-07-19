@@ -16,23 +16,27 @@ public class BoardController {
 	@Autowired   // 메모리에 로딩된 객체 중에 찾아서 할당해라 
 	private BoardService boardService;   // 비즈니스 컴포넌트의 클라이언트인 Controller에게 BoardDAOJDBC 아닌 BoardService 제공 (리모컨) 
 
+	// 포스트 등록 화면으로 이동 
 	@RequestMapping("/insertBoardView.do") 
 	public String insertBoardView() {
 		return "insertBoard";
 	}
 
+	// 포스트 등록 
 	@RequestMapping("/insertBoard.do")        // .do 요청과 매핑됨 
 	public String insertBoard(BoardVO vo) {   // 문자열 반환 / VO 객체가 인자로 전달되어 parameter, result set 으로 이용됨 (스프링 컨테이너)
 		boardService.insertBoard(vo);         // Service 인터페이스 의존성 주입 하여 디비 데이터 접근 
 		return "forward:getBoardList.do";     // 뷰를 문자열로 리턴 // 또는 반영된 디비로 뿌려야 하므로 .do(forward) 
 	}
 	
+	// 포스트 수정 
 	@RequestMapping("/updateBoard.do")
 	public String updateBoard(BoardVO vo) {
 		boardService.updateBoard(vo);   
 		return "forward:getBoardList.do";  
 	}
 	
+	// 포스트 삭제 
 	@RequestMapping("/deleteBoard.do") 
 	public String deleteBoard(BoardVO vo) {
 		boardService.deleteBoard(vo);   
@@ -66,6 +70,7 @@ public class BoardController {
 	}
 	*/
 	
+	// 포스트 상세 조회 
 	@RequestMapping("/getBoard.do")
 	public String getBoard(BoardVO vo, Model model) {   
 		model.addAttribute("board", boardService.getBoard(vo));   // Model도 request에 자동 저장됨 
@@ -73,6 +78,8 @@ public class BoardController {
 	}
 	// 사용자의 입력 정보를 VO 객체에 담아서 SQL문으로 디비에 보낸후 Service 로직 수행 후 결과 데이터를 model에 담아면 request에 자동 저장 -> jsp에서 이용 가능  
 	
+	
+	// 포스트 목록 조회 
 	@RequestMapping("/getBoardList.do")
 	public String getBoardList(BoardVO vo,  Model model) {   
 		
